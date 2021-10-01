@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 
-namespace CompetitiveProgramming
+namespace CompetitiveProgramming.CodeChef
 {
     /// <summary>
     /// https://www.codechef.com/problems/FLOW016
