@@ -6,4 +6,8 @@
     <AssemblyName>cp-cs</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Spectre.Console" Version="0.42.0" />
+  </ItemGroup>
+
 </Project>

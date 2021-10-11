@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Spectre.Console;
+using Spectre.Console.Cli;
+using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -12,81 +15,29 @@ namespace CompetitiveProgramming
             new Action(Solution.Run)
         };
 
-        static void Main(string[] args)
+        static int Main(string[] args)
         {
-            var separator = new string('-', 64);
-            if (args.Length >= 1)
+            var app = new CommandApp();
+            app.SetDefaultCommand<RunCommand>();
+            app.Configure(config =>
             {
-                switch (args[0])
-                {
-                    case "-g":
-                        GenerateInput();
-                        break;
-                    case "-h":
-                        ShowUsage();
-                        break;
-                    case "-s":
-                        Console.SetIn(new StreamReader("input.txt"));
-                        algorithms[0]();
-                        break;
-                    case "-p":
-                        Playground.Run();
-                        break;
-                    default:
-                        int iterations = int.Parse(args[0]);
-                        var stopwatches = new Stopwatch[algorithms.Length][];
-                        for (int i = 0; i < stopwatches.Length; i++)
-                        {
-                            stopwatches[i] = new Stopwatch[iterations];
-                        }
-                        for (int i = 0; i < iterations; i++)
-                        {
-                            GenerateInput();
-                            for (int j = 0; j < algorithms.Length; j++)
-                            {
-                                TextReader defaultInLoop = Console.In;
-                                Console.SetIn(new StreamReader("input.txt"));
+                config.AddCommand<RunCommand>("run")
+                .WithExample(new[] { "run", "-c", "10" });
+                config.AddDelegate("gen", GenerateInput)
+                    .WithDescription("Generates input.");
+                config.AddDelegate("play", RunPlayground)
+                    .WithDescription("Runs the playground. Used for showing data or solution patterns.");
+            });
 
-                                Console.WriteLine($"Running Algorithm: {j + 1} Iteration: {i + 1}");
-
-                                stopwatches[j][i] = RunSolution(algorithms[j]);
-
-                                Console.WriteLine(separator);
-                                Console.WriteLine();
-                                Console.In.Close();
-                                Console.SetIn(defaultInLoop);
-                            }
-                        }
-
-                        Console.WriteLine("Running Time Statistics:");
-                        for (int i = 0; i < stopwatches.Length; i++)
-                        {
-                            Console.WriteLine($"Algorithm {i + 1}");
-                            Console.WriteLine($"Best Time:\t{stopwatches[i].Min(x => x.Elapsed)}");
-                            Console.WriteLine($"Worst Time:\t{stopwatches[i].Max(x => x.Elapsed)}");
-                            Console.WriteLine($"Avg Time:\t{new TimeSpan((long)stopwatches[i].Average(x => x.ElapsedTicks)) }");
-                            Console.WriteLine();
-                        }
-                        break;
-                }
-                return;
+            try
+            {
+                return app.Run(args);
             }
-
-
-            TextReader defaultIn = Console.In;
-            Console.SetIn(new StreamReader("input.txt"));
-
-            Stopwatch stopwatch = RunSolution(algorithms[0]);
-
-            Console.WriteLine(separator);
-            Console.WriteLine();
-            Console.WriteLine("Running Time Statistics:");
-            Console.WriteLine($"Elapsed Time:\t{stopwatch.Elapsed}");
-
-            Console.SetIn(defaultIn);
-#if DEBUG
-            Console.ReadKey();
-#endif
+            catch (Exception ex)
+            {
+                AnsiConsole.WriteException(ex);
+                return 1;
+            }
         }
 
         private static Stopwatch RunSolution(Action algorithm)
@@ -100,8 +51,9 @@ namespace CompetitiveProgramming
             return sw;
         }
 
-        private static void GenerateInput()
+        private static int GenerateInput(CommandContext context)
         {
+
             TextWriter defaultOut = Console.Out;
             using (var writer = new StreamWriter("input.txt"))
             {
@@ -110,18 +62,78 @@ namespace CompetitiveProgramming
             }
             Console.Out.Close();
             Console.SetOut(defaultOut);
+            return 0;
         }
 
-        private static void ShowUsage()
+        private static int RunPlayground(CommandContext context)
         {
-            Console.WriteLine("Usage: cp [options]");
-            Console.WriteLine();
-            Console.WriteLine("Options:");
-            Console.WriteLine("\t-h\tDisplay help.");
-            Console.WriteLine("\t-g\tGenerate input.");
-            Console.WriteLine("\t(n)\tRun registered solutions n times, each time it generates input.");
-            Console.WriteLine("\t-s\tSilent mode. Runs default solution without time info. Used for comparing outputs automatically with other solutions.");
-            Console.WriteLine("\t-p\tRuns the playground. Used for showing data or solution patterns.");
+            Playground.Run();
+            return 0;
+        }
+
+        [Description("Runs registered solutions.")]
+        public sealed class RunCommand : Command<RunCommand.Settings>
+        {
+            public sealed class Settings : CommandSettings
+            {
+                [CommandOption("-c|--count <ITERATIONS>")]
+                [Description("The number of iterations to run. The default is '[grey]1[/]'.")]
+                [DefaultValue("1")]
+                public uint Count { get; set; }
+            }
+
+            public override int Execute(CommandContext context, Settings settings)
+            {
+                if (settings.Count == 1 && algorithms.Length == 1)
+                {
+                    TextReader defaultIn = Console.In;
+                    Console.SetIn(new StreamReader("input.txt"));
+
+                    Stopwatch stopwatch = RunSolution(algorithms[0]);
+
+                    AnsiConsole.WriteLine();
+                    AnsiConsole.Write(new Panel($"Elapsed Time: [aqua]{stopwatch.Elapsed}[/]")
+                        .Header("Running Time Statistics:"));
+
+                    Console.SetIn(defaultIn);
+                    return 0;
+                }
+
+                var stopwatches = new Stopwatch[algorithms.Length][];
+                for (int i = 0; i < stopwatches.Length; i++)
+                {
+                    stopwatches[i] = new Stopwatch[settings.Count];
+                }
+                for (int i = 0; i < settings.Count; i++)
+                {
+                    GenerateInput(context);
+                    AnsiConsole.Write(new Rule($"[green]Iteration: {i + 1}[/]").RuleStyle(Style.Parse("green")));
+                    for (int j = 0; j < algorithms.Length; j++)
+                    {
+                        TextReader defaultInLoop = Console.In;
+                        Console.SetIn(new StreamReader("input.txt"));
+
+                        AnsiConsole.Write(new Rule($"[yellow]Algorithm: {j + 1}[/]").RuleStyle(Style.Parse("yellow")).LeftAligned());
+
+                        stopwatches[j][i] = RunSolution(algorithms[j]);
+
+                        AnsiConsole.WriteLine();
+                        Console.In.Close();
+                        Console.SetIn(defaultInLoop);
+                    }
+                }
+
+                var table = new Table()
+                    .Title("[aqua]Running Time Statistics[/]")
+                    .AddColumns(new TableColumn("[bold]Algorithm[/]"), new TableColumn("[bold]Best Time[/]"), new TableColumn("[bold]Worst Time[/]"), new TableColumn("[bold]Avg Time[/]"));
+                for (int i = 0; i < stopwatches.Length; i++)
+                {
+                    table.AddRow($"{i + 1}", $"{stopwatches[i].Min(x => x.Elapsed)}", $"{stopwatches[i].Max(x => x.Elapsed)}", $"{new TimeSpan((long)stopwatches[i].Average(x => x.ElapsedTicks))}");
+                }
+
+                AnsiConsole.Write(table);
+                return 0;
+            }
         }
     }
 }
