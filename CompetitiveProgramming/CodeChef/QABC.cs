@@ -29,7 +29,7 @@ namespace CompetitiveProgramming.CodeChef
             output.Flush();
         }
 
-        public static bool Solve(int[] a, int[] b)
+        static bool Solve(int[] a, int[] b)
         {
             for (int i = 0; i < a.Length - 2; i++)
             {

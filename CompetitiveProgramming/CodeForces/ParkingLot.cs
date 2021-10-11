@@ -21,13 +21,13 @@ namespace CompetitiveProgramming
             output.Flush();
         }
 
-        public static long Solve(int n)
+        static long Solve(int n)
         {
             var a = IntPow(4L, n - 3);
             return 24 * a + 9 * a * (n - 3);
         }
 
-        public static long IntPow(long b, int e)
+        static long IntPow(long b, int e)
         {
             long result = 1;
             while (e > 0)

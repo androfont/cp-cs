@@ -27,7 +27,7 @@ namespace CompetitiveProgramming.CodeSignal
             output.Flush();
         }
 
-        public static int Solve(int[] coins, int[] quantity)
+        static int Solve(int[] coins, int[] quantity)
         {
             int max = coins.Zip(quantity, (c, q) => c * q).Sum();
             var dp = new bool[max + 1];

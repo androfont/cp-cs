@@ -25,7 +25,7 @@ namespace CompetitiveProgramming
             output.Flush();
         }
 
-        public static string Solve(string path)
+        static string Solve(string path)
         {
             var tokens = path.Split('/');
             var pathStack = new Stack<string>();

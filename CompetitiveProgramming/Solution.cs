@@ -24,7 +24,7 @@ namespace CompetitiveProgramming
             output.Flush();
         }
 
-        public static int Solve()
+        static int Solve()
         {
             return 0;
         }        

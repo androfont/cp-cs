@@ -26,7 +26,7 @@ namespace CompetitiveProgramming.CodeSignal
             output.Flush();
         }
 
-        public static string Solve(int pos)
+        static string Solve(int pos)
         {
             int mask = (1 << 16) - 1;
             int bits = (pos >> 16) ^ (pos & mask);

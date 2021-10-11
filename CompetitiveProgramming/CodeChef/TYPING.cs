@@ -60,7 +60,7 @@ namespace CompetitiveProgramming.CodeChef
             output.Flush();
         }
 
-        private static bool IsRightHand(char c)
+        static bool IsRightHand(char c)
         {
             if (c == 'd' || c == 'f')
             {

@@ -5,7 +5,7 @@ namespace CompetitiveProgramming.Helpers
 {
     static class InputHelper
     {
-        static IEnumerable<T> ReadArray<T>(string arrayLine, Func<string, T> parseFunction, char separator = ' ')
+        internal static IEnumerable<T> ReadArray<T>(string arrayLine, Func<string, T> parseFunction, char separator = ' ')
         {
             int from = 0;
             for (int i = 0; i < arrayLine.Length; i++)

@@ -28,7 +28,7 @@ namespace CompetitiveProgramming.CodeChef
             output.Flush();
         }
 
-        public static long[] Solve(long a, long b)
+        static long[] Solve(long a, long b)
         {
             long lcma = a;
             long lcmb = b;
