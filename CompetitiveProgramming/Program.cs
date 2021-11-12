@@ -16,7 +16,7 @@ namespace CompetitiveProgramming
         };
 
         static int Main(string[] args)
-        {
+        {            
             var app = new CommandApp();
             app.SetDefaultCommand<RunCommand>();
             app.Configure(config =>
@@ -29,15 +29,7 @@ namespace CompetitiveProgramming
                     .WithDescription("Runs the playground. Used for showing data or solution patterns.");
             });
 
-            try
-            {
-                return app.Run(args);
-            }
-            catch (Exception ex)
-            {
-                AnsiConsole.WriteException(ex);
-                return 1;
-            }
+            return app.Run(args);            
         }
 
         private static Stopwatch RunSolution(Action algorithm)
