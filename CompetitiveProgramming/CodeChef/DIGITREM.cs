@@ -1,14 +1,17 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.IO;
 
 namespace CompetitiveProgramming.CodeChef;
 
-/// <summary>
-/// https://www.codechef.com/OCT21B/problems/DIGITREM
-/// Time Complexity: O(n)
-/// Memory Complexity: O(1)
-/// Tags: adhoc
-/// </summary>
+[AlgorithmInfo(
+    url: "https://www.codechef.com/OCT21B/problems/DIGITREM",
+    timeComplexity: ComplexityValues.Linear,
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.Adhoc
+    }
+)]
 class DIGITREM
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

@@ -1,16 +1,19 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace CompetitiveProgramming.CodeSignal;
 
-/// <summary>
-/// https://app.codesignal.com/interview-practice/task/aRwxhGcmvhf6vKPCp/description
-/// Time Complexity: O(n)
-/// Memory Complexity: O(n)
-/// Tags: stack
-/// </summary>
+[AlgorithmInfo(
+    url: "https://app.codesignal.com/interview-practice/task/aRwxhGcmvhf6vKPCp/description",
+    timeComplexity: ComplexityValues.Linear,
+    memoryComplexity: ComplexityValues.Linear,
+    new[] {
+        AlgorithmTags.Stack
+    }
+)]
 class SimplifyPath
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

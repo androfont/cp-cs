@@ -1,16 +1,21 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace CompetitiveProgramming.CodeChef;
 
-/// <summary>
-/// https://www.codechef.com/SDPCB21/problems/CHEFPRMS
-/// Time Complexity: O(n^2) -> Generating prime combinations
-/// Memory Complexity: O(n)
-/// Tags: sieve, factorization
-/// </summary>
+[AlgorithmInfo(
+    url: "https://www.codechef.com/SDPCB21/problems/CHEFPRMS",
+    timeComplexity: ComplexityValues.Cuadratic + " -> Generating prime combinations",
+    memoryComplexity: ComplexityValues.Linear,
+    new[] {
+        AlgorithmTags.Prime,
+        AlgorithmTags.Factorization,
+        AlgorithmTags.Sieve
+    }
+)]
 class CHEFPRMS
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

@@ -1,14 +1,19 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.IO;
 
 namespace CompetitiveProgramming.CodeForces;
 
-/// <summary>
-/// http://codeforces.com/problemset/problem/630/I
-/// Time Complexity: O(log(n))
-/// Memory Complexity: O(1)
-/// Tags: combinatory math
-/// </summary>
+[AlgorithmInfo(
+    url: "https://www.codechef.com/OCT21B/problems/MEXOR",
+    timeComplexity: ComplexityValues.Log,
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.Math,
+        AlgorithmTags.Combinatory,
+        AlgorithmTags.BinaryExponentiation
+    }
+)]
 class ParkingLot
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

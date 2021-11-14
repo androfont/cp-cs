@@ -1,16 +1,19 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace CompetitiveProgramming.CodeChef;
 
-/// <summary>
-/// https://www.codechef.com/SDPCB21/problems/TYPING
-/// Time Complexity: O(n)
-/// Memory Complexity: O(n)
-/// Tags: adhoc
-/// </summary>
+[AlgorithmInfo(
+    url: "https://www.codechef.com/SDPCB21/problems/TYPING",
+    timeComplexity: ComplexityValues.Linear,
+    memoryComplexity: ComplexityValues.Linear,
+    new[] {
+        AlgorithmTags.Adhoc
+    }
+)]
 class TYPING
 {
     static Dictionary<string, int> memo;

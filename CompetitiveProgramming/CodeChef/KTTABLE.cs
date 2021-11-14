@@ -1,16 +1,19 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace CompetitiveProgramming.CodeChef;
 
-/// <summary>
-/// https://www.codechef.com/SDPCB21/problems/KTTABLE
-/// Time Complexity: O(n)
-/// Memory Complexity: O(1)
-/// Tags: adhoc
-/// </summary>
+[AlgorithmInfo(
+    url: "https://www.codechef.com/SDPCB21/problems/KTTABLE",
+    timeComplexity: ComplexityValues.Linear,
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.Adhoc
+    }
+)]
 class KTTABLE
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

@@ -1,16 +1,19 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.IO;
 using System.Linq;
 
 namespace CompetitiveProgramming.CodeChef;
 
-/// <summary>
-/// https://www.codechef.com/problems/FLOW016
-/// Time Complexity: O(log(n))
-/// Memory Complexity: O(1)
-/// Tags:gcd
-/// </summary>
-class GcdLcm
+[AlgorithmInfo(
+    url: "https://www.codechef.com/problems/FLOW016",
+    timeComplexity: ComplexityValues.Log,
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.Gcd
+    }
+)]
+class FLOW016
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());
 

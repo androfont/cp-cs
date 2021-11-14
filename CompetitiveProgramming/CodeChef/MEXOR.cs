@@ -1,14 +1,17 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.IO;
 
 namespace CompetitiveProgramming.CodeChef;
 
-/// <summary>
-/// https://www.codechef.com/OCT21B/problems/MEXOR
-/// Time Complexity: O(n) -> bit length
-/// Memory Complexity: O(1)
-/// Tags: bitwise
-/// </summary>
+[AlgorithmInfo(
+    url: "https://www.codechef.com/OCT21B/problems/MEXOR",
+    timeComplexity: ComplexityValues.Linear + " -> bit length",
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.BitManipulation
+    }
+)]
 class MEXOR
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

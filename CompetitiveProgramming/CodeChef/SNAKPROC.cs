@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.IO;
 
 namespace CompetitiveProgramming.CodeChef;
@@ -9,6 +10,15 @@ namespace CompetitiveProgramming.CodeChef;
 /// Memory Complexity: O(1)
 /// Tags: adhoc
 /// </summary>
+/// 
+[AlgorithmInfo(
+    url: "https://www.codechef.com/SDPCB21/problems/SNAKPROC",
+    timeComplexity: ComplexityValues.Linear,
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.Adhoc
+    }
+)]
 class SNAKPROC
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

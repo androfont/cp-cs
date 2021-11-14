@@ -1,16 +1,19 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace CompetitiveProgramming.CodeSignal;
 
-/// <summary>
-/// https://app.codesignal.com/interview-practice/task/rMe9ypPJkXgk3MHhZ/description
-/// Time Complexity: O(Sum(coin[i]*quantity[i]*coins)
-/// Memory Complexity: O(Sum(coin[i]*quantity[i])
-/// Tags: hash-tables
-/// </summary>
+[AlgorithmInfo(
+    url: "https://app.codesignal.com/interview-practice/task/rMe9ypPJkXgk3MHhZ/description",
+    timeComplexity: "O(Sum(coin[i]*quantity[i]*coins)",
+    memoryComplexity: "O(Sum(coin[i]*quantity[i])",
+    new[] {
+        AlgorithmTags.HashTable
+    }
+)]
 class PossibleSums
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

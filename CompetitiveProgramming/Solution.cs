@@ -1,15 +1,18 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.IO;
 using System.Linq;
 
 namespace CompetitiveProgramming;
 
-/// <summary>
-/// https://
-/// Time Complexity: O()
-/// Memory Complexity: O()
-/// Tags:
-/// </summary>
+[AlgorithmInfo(
+    url: "",
+    timeComplexity: ComplexityValues.Constant,
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.Unknown
+    }
+)]
 class Solution
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

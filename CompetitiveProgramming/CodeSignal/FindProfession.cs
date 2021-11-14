@@ -1,14 +1,17 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.IO;
 
 namespace CompetitiveProgramming.CodeSignal;
 
-/// <summary>
-/// https://app.codesignal.com/interview-practice/task/FwAR7koSB3uYYsqDp/description
-/// Time Complexity: O(1)
-/// Memory Complexity: O(1)
-/// Tags: Bitwise
-/// </summary>
+[AlgorithmInfo(
+    url: "https://app.codesignal.com/interview-practice/task/FwAR7koSB3uYYsqDp/description",
+    timeComplexity: ComplexityValues.Constant,
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.BitManipulation
+    }
+)]
 class FindProfession
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());

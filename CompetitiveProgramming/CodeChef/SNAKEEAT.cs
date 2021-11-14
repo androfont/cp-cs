@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CompetitiveProgramming.Metadata;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,15 @@ namespace CompetitiveProgramming.CodeChef;
 /// Memory Complexity: O(1)
 /// Tags: binary-search
 /// </summary>
+/// 
+[AlgorithmInfo(
+    url: "https://www.codechef.com/SDPCB21/problems/SNAKEEAT",
+    timeComplexity: ComplexityValues.Nlog,
+    memoryComplexity: ComplexityValues.Constant,
+    new[] {
+        AlgorithmTags.BinarySearch
+    }
+)]
 class SNAKEEAT
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());
