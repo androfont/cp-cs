@@ -6,7 +6,7 @@ using System.Linq;
 namespace CompetitiveProgramming;
 
 [AlgorithmInfo(
-    url: "",
+    url: "http://www.codechef.com",
     timeComplexity: ComplexityValues.Constant,
     memoryComplexity: ComplexityValues.Constant,
     new[] {

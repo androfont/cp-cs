@@ -1,10 +1,13 @@
-﻿using Spectre.Console;
+﻿using CompetitiveProgramming.Metadata;
+using Spectre.Console;
 using Spectre.Console.Cli;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 
 namespace CompetitiveProgramming;
 
@@ -13,7 +16,7 @@ class Program
     private static Action[] algorithms = new[]
     {
             new Action(Solution.Run)
-        };
+    };
 
     static int Main(string[] args)
     {
@@ -23,13 +26,25 @@ class Program
         {
             config.AddCommand<RunCommand>("run")
             .WithExample(new[] { "run", "-c", "10" });
+            config.AddCommand<SearchCommand>("search")
+            .WithExample(new[] { "search", "-s", "stack" });
             config.AddDelegate("gen", GenerateInput)
                 .WithDescription("Generates input.");
             config.AddDelegate("play", RunPlayground)
                 .WithDescription("Runs the playground. Used for showing data or solution patterns.");
+            config.PropagateExceptions();
         });
 
-        return app.Run(args);
+        try
+        {
+            return app.Run(args);
+        }
+        catch (Exception ex)
+        {
+            AnsiConsole.WriteException(ex);
+            return -1;
+        }
+
     }
 
     private static Stopwatch RunSolution(Action algorithm)
@@ -62,6 +77,8 @@ class Program
         Playground.Run();
         return 0;
     }
+
+    // Commands
 
     [Description("Runs registered solutions.")]
     public sealed class RunCommand : Command<RunCommand.Settings>
@@ -121,6 +138,42 @@ class Program
             for (int i = 0; i < stopwatches.Length; i++)
             {
                 table.AddRow($"{i + 1}", $"{stopwatches[i].Min(x => x.Elapsed)}", $"{stopwatches[i].Max(x => x.Elapsed)}", $"{new TimeSpan((long)stopwatches[i].Average(x => x.ElapsedTicks))}");
+            }
+
+            AnsiConsole.Write(table);
+            return 0;
+        }
+    }
+
+    [Description("Search solution classes containing particular algorithm tags.")]
+    public sealed class SearchCommand : Command<SearchCommand.Settings>
+    {
+        public sealed class Settings : CommandSettings
+        {
+            [CommandOption("-t|--tag <Tag>")]
+            [Description("List solutions tagged with particular tag name.")]
+            public string Tag { get; set; }
+        }
+
+        public override int Execute(CommandContext context, Settings settings)
+        {
+            var solutionsInfo = new List<(string ClassName, AlgorithmInfoAttribute AlgorithmInfo)>();
+            var types = Assembly.GetExecutingAssembly().GetTypes();
+            foreach (var type in types)
+            {
+                var algorithmInfoAttribute = type.GetCustomAttribute<AlgorithmInfoAttribute>(false);
+                if (algorithmInfoAttribute != null && algorithmInfoAttribute.Tags.Any(x => x.ToString().ToLower().Contains(settings.Tag.ToLower())))
+                {
+                    solutionsInfo.Add((type.Name, algorithmInfoAttribute));
+                }
+            }
+
+            var table = new Table()
+                .Title("[aqua]Running Time Statistics[/]")
+                .AddColumns(new TableColumn("[bold]Class Name[/]"), new TableColumn("[bold]Tags[/]"), new TableColumn("[bold]Time Complexity[/]"));
+            foreach (var solutionInfo in solutionsInfo)
+            {
+                table.AddRow($"[link={solutionInfo.AlgorithmInfo.ProblemUrl}]{solutionInfo.ClassName}[/]", $"{string.Join(" | ", solutionInfo.AlgorithmInfo.Tags)}", $"{solutionInfo.AlgorithmInfo.TimeComplexity}");
             }
 
             AnsiConsole.Write(table);
