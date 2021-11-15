@@ -5,7 +5,7 @@ using static System.Math;
 
 namespace Algorithm.Algebra.PrimeNumbers;
 
-public static class SieveOfEratosthenesTools
+public static class PrimeSieveTools
 {
     public static IEnumerable<int> SieveOfEratosthenes(int n)
     {
@@ -105,5 +105,27 @@ public static class SieveOfEratosthenesTools
                 yield return l + i;
             }
         }
+    }
+
+    public static IEnumerable<int> EulerSieve(int n, out IList<int> lowestPrime)
+    {
+        lowestPrime = new int[n + 1];
+        var primes = new List<int>();
+
+        for (int i = 2; i <= n; i++)
+        {
+            if (lowestPrime[i] == 0)
+            {
+                lowestPrime[i] = i;
+                primes.Add(i);
+            }
+
+            for (int j = 0; j < primes.Count && primes[j] <= lowestPrime[i] && i * primes[j] <= n; j++)
+            {
+                lowestPrime[i * primes[j]] = primes[j];
+            }
+        }
+
+        return primes;
     }
 }

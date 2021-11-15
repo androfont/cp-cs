@@ -19,7 +19,6 @@ public static class FibonacciTools
         else
         {
             return (fn: c, fn1: d);
-
         }
     }
 }
