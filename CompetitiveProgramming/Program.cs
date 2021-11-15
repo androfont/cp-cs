@@ -169,7 +169,7 @@ class Program
             }
 
             var table = new Table()
-                .Title("[aqua]Running Time Statistics[/]")
+                .Title("[aqua]Search Results[/]")
                 .AddColumns(new TableColumn("[bold]Class Name[/]"), new TableColumn("[bold]Tags[/]"), new TableColumn("[bold]Time Complexity[/]"));
             foreach (var solutionInfo in solutionsInfo)
             {
