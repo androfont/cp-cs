@@ -4,15 +4,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace CompetitiveProgramming.CodeChef;
+namespace CompetitiveProgramming.CodeChef.SnacDownPractice;
 
-/// <summary>
-/// https://www.codechef.com/SDPCB21/problems/SNAKEEAT
-/// Time Complexity: O(nlong(n))
-/// Memory Complexity: O(1)
-/// Tags: binary-search
-/// </summary>
-/// 
 [AlgorithmInfo(
     url: "https://www.codechef.com/SDPCB21/problems/SNAKEEAT",
     timeComplexity: ComplexityValues.Nlog,

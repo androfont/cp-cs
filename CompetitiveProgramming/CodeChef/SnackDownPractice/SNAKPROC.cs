@@ -2,15 +2,8 @@
 using System;
 using System.IO;
 
-namespace CompetitiveProgramming.CodeChef;
+namespace CompetitiveProgramming.CodeChef.SnacDownPractice;
 
-/// <summary>
-/// https://www.codechef.com/SDPCB21/problems/SNAKPROC
-/// Time Complexity: O(n)
-/// Memory Complexity: O(1)
-/// Tags: adhoc
-/// </summary>
-/// 
 [AlgorithmInfo(
     url: "https://www.codechef.com/SDPCB21/problems/SNAKPROC",
     timeComplexity: ComplexityValues.Linear,

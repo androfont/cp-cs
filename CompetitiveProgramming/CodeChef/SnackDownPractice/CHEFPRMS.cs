@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace CompetitiveProgramming.CodeChef;
+namespace CompetitiveProgramming.CodeChef.SnacDownPractice;
 
 [AlgorithmInfo(
     url: "https://www.codechef.com/SDPCB21/problems/CHEFPRMS",

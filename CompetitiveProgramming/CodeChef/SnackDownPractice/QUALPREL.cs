@@ -4,17 +4,17 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace CompetitiveProgramming.CodeChef;
+namespace CompetitiveProgramming.CodeChef.SnacDownPractice;
 
 [AlgorithmInfo(
-    url: "https://www.codechef.com/SDPCB21/problems/QABC",
+    url: "https://www.codechef.com/SDPCB21/problems/QUALPREL",
     timeComplexity: ComplexityValues.Linear,
     memoryComplexity: ComplexityValues.Constant,
     new[] {
         AlgorithmTags.Adhoc
     }
 )]
-class QABC
+class QUALPREL
 {
     static StreamWriter output = new StreamWriter(Console.OpenStandardOutput());
 
@@ -23,31 +23,22 @@ class QABC
         int testCount = int.Parse(Console.ReadLine());
         for (int t = 0; t < testCount; t++)
         {
-            Console.ReadLine();
+            var input = Console.ReadLine().Split();
+            int k = int.Parse(input[1]);
 
-            var a = ReadArray(Console.ReadLine(), s => int.Parse(s)).ToArray();
-            var b = ReadArray(Console.ReadLine(), s => int.Parse(s)).ToArray();
-            output.WriteLine(Solve(a, b) ? "TAK" : "NIE");
-        }
-        output.Flush();
-    }
-
-    static bool Solve(int[] a, int[] b)
-    {
-        for (int i = 0; i < a.Length - 2; i++)
-        {
-            if (a[i] > b[i])
+            var scores = ReadArray(Console.ReadLine(), x => int.Parse(x)).ToArray();
+            Array.Sort(scores, (x, y) => y.CompareTo(x));
+            var value = scores[k - 1];
+            int result = k;
+            while (k < scores.Length && scores[k] == value)
             {
-                return false;
+                result++;
+                k++;
             }
 
-            int diff = b[i] - a[i];
-            a[i] += diff;
-            a[i + 1] += 2 * diff;
-            a[i + 2] += 3 * diff;
+            output.WriteLine(result);
         }
-
-        return a[a.Length - 1] == b[b.Length - 1] && a[a.Length - 2] == b[b.Length - 2];
+        output.Flush();
     }
 
     static IEnumerable<T> ReadArray<T>(string arrayLine, Func<string, T> parseFunction, char separator = ' ')
@@ -67,12 +58,17 @@ class QABC
 
     internal static void GenerateData()
     {
-        Console.WriteLine(2);
-        Console.WriteLine(5);
-        Console.WriteLine("0 0 0 0 0");
-        Console.WriteLine("1 2 4 2 3");
-        Console.WriteLine(5);
-        Console.WriteLine("0 0 0 0 0");
-        Console.WriteLine("1 2 4 2 4");
+        var rd = new Random();
+        int testCount = 1000;
+        Console.WriteLine(testCount);
+
+        int maxkn = 100000;
+        for (int t = 0; t < testCount; t++)
+        {
+            int n = rd.Next(maxkn) + 1;
+            int k = rd.Next(n) + 1;
+            Console.WriteLine($"{n} {k}");
+            Console.WriteLine(string.Join(' ', (new int[n]).Select((_, _) => rd.Next(1000000000) + 1)));
+        }
     }
 }

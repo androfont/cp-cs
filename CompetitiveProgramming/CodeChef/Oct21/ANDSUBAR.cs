@@ -2,7 +2,7 @@
 using System;
 using System.IO;
 
-namespace CompetitiveProgramming.CodeChef;
+namespace CompetitiveProgramming.CodeChef.Oct21;
 
 [AlgorithmInfo(
     url: "https://www.codechef.com/OCT21B/problems/ANDSUBAR",
