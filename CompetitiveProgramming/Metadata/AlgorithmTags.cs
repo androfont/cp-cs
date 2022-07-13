@@ -5,6 +5,9 @@ public enum AlgorithmTags
     Unknown = 0,
     Adhoc,
     BitManipulation,
+    BruteForce,
+    DynamicProgramming,
+    StringManipulation,
 
     // Data Structures
     HashTable,
